@@ -1,4 +1,6 @@
 "use strict";
+const MOVIE_KEY = "7f4f98e5614adf52b2fdfeeb75a48c97"
+
     // Movie data API
     fetch("http://www.themoviedb.org/eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjRmOThlNTYxNGFkZjUyYjJmZGZlZWI3NWE0OGM5NyIsInN1YiI6IjY1NzBlZGI4ZGZlMzFkMDBmZDJmNGNlYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5eKO4obIJHeDWjrngGhRLSOY8fdIOVbjyoEdb-Q_2vo").then(resp => resp.json()).then(data => console.log(data));
 
