@@ -1,10 +1,20 @@
 "use strict";
-const MOVIE_KEY = "7f4f98e5614adf52b2fdfeeb75a48c97"
+// const MOVIE_KEY = "7f4f98e5614adf52b2fdfeeb75a48c97"
 
-    // Movie data API
-    fetch("http://www.themoviedb.org/eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjRmOThlNTYxNGFkZjUyYjJmZGZlZWI3NWE0OGM5NyIsInN1YiI6IjY1NzBlZGI4ZGZlMzFkMDBmZDJmNGNlYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5eKO4obIJHeDWjrngGhRLSOY8fdIOVbjyoEdb-Q_2vo").then(resp => resp.json()).then(data => console.log(data));
 
-    //Object array in the console log "shrek
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjRmOThlNTYxNGFkZjUyYjJmZGZlZWI3NWE0OGM5NyIsInN1YiI6IjY1NzBlZGI4ZGZlMzFkMDBmZDJmNGNlYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5eKO4obIJHeDWjrngGhRLSOY8fdIOVbjyoEdb-Q_2vo'
+    }
+};
+fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1', options)
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
+
+//Object array in the console log "shrek
     fetch("http://www.omdbapi.com/?i=tt3896198&apikey=3d3318fc").then(resp => resp.json()).then(data => fetch("http://localhost:3000/movies")).then(resp => resp.json()).then(data => console.log(data));
 
     const createMovie = async (movie) => {
@@ -25,24 +35,6 @@ const MOVIE_KEY = "7f4f98e5614adf52b2fdfeeb75a48c97"
         }
     }
 
-
-    // const createAuthor = async (author) => {
-    //     try {
-    //         const url = `http://localhost:3000/authors`;
-    //         const options = {
-    //             method: "POST",
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(author)
-    //         };
-    //         const resp = await fetch(url, options);
-    //         const newAuthor = await resp.json();
-    //         return newAuthor;
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
 
     const editMovie = async (id, movie) => {
         try {
