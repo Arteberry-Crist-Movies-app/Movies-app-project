@@ -21,22 +21,29 @@ function fetchMovies(searchText) {
         .then(data => {
             saveToLocalStorage('searchResults', data.results);
             return data.results;
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        //     return []; // Return an empty array in case of an error
         });
 }
 // Function to display only the first movie on the page
-function displayMovie(result) {
+function displayMovies(result) {
     const movieContainer = document.getElementById('movies');
-    movieContainer.innerHTML = '';
-    if (result.length > 0) {
-        const movie = result[0];
-        let movieCard = `
+    movieContainer.innerHTML += '';
+    // const storedResults = getFromLocalStorage('searchResults');
+    const results = result.slice(0, 1);
+    if (results.length > 0) {
+        results.forEach(movie => {
+            let movieCard = `
             <div>
                 <h3>${movie.title}</h3>
                 <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"/>
                 <p>${movie.overview}</p>
             </div>
         `;
-        movieContainer.innerHTML += movieCard;
+            movieContainer.innerHTML += movieCard;
+        });
     } else {
         movieContainer.innerHTML = '<p>No results found</p>';
     }
@@ -46,7 +53,12 @@ function searchMovies(e) {
     e.preventDefault();
     const searchText = document.getElementById('searchBar').value;
     fetchMovies(searchText)
-        .then(displayMovie)
+        .then(displayMovies)
         .catch(error => console.error('Error:', error));
 }
 document.getElementById("submitSearch").addEventListener("click", searchMovies);
+
+const storedResults = getFromLocalStorage('searchResults');
+if (storedResults) {
+    displayMovies(storedResults);
+}
