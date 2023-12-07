@@ -1,6 +1,4 @@
 "use strict";
-// const MOVIE_KEY = "7f4f98e5614adf52b2fdfeeb75a48c97"
-
 
 const options = {
     method: 'GET',
@@ -35,6 +33,34 @@ fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en
             console.error(error);
         }
     }
+
+// Function to create a new movie and render it on the website
+async function createAndRenderMovie() {
+    try {
+        // Fetch movie data from an external API
+        const response = await fetch('https://api.themoviedb.org/3/movie/157336?api_key=7f4f98e5614adf52b2fdfeeb75a48c97');
+        const movieData = await response.json().then(data => console.log(data));
+
+        // Create a new movie object based on the fetched data
+        const newMovie = {
+            title: movieData,
+            vote_average: movieData,
+            overview: movieData
+            // Add more properties as needed
+        };
+
+        // Create the movie on your local server
+        const createdMovie = await createMovie(newMovie);
+
+        // Render the newly created movie on the website
+        await renderMovieCard(createdMovie);
+    } catch (error) {
+        console.error(error);
+    }
+     // await createAndRenderMovie();
+}
+
+// Call the function to create and render a new movie
 
 
     const editMovie = async (id, movie) => {
@@ -101,6 +127,23 @@ fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en
 
     // createBook(newBook).then(() => fetch("http://localhost:3000/books")).then(resp => resp.json()).then(data => console.log(data));
 
+// For the user to search a movie and add it to the page
+document.getElementById('addMovieBtn').addEventListener('click', function (e) {
+    e.preventDefault()
+    const userInput = document.getElementById('addMovie').value;
+    createAndRenderMovie(userInput, AUTH_KEY).then(function (result) {
+        if (result && result.Title) {
+            renderMovieCard(result);
+        } else (result && result.Error); {
+            console.error(result.Error);
+            alert('Unable to fetch data for the given movie title.');
+        }
+    }).catch(function (error) {
+        console.error(error);
+        alert('That is not a movie yet.');
+    });
+});
+
 
     // On Load up adds movie cards to page
     async function renderMovieCard(movie) {
@@ -120,7 +163,6 @@ fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en
                         
 `;
         movieContainer.appendChild(movieHTML);
-        document.getElementById('movies').innerHTML = movieHTML;
                 };
 
 
