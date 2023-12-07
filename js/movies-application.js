@@ -6,7 +6,7 @@ const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjRmOThlNTYxNGFkZjUyYjJmZGZlZWI3NWE0OGM5NyIsInN1YiI6IjY1NzBlZGI4ZGZlMzFkMDBmZDJmNGNlYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5eKO4obIJHeDWjrngGhRLSOY8fdIOVbjyoEdb-Q_2vo'
+        Authorization: AUTH_KEY
     }
 };
 fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1', options)
@@ -15,7 +15,8 @@ fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en
     .catch(err => console.error(err));
 
 //Object array in the console log "shrek
-    fetch("http://www.omdbapi.com/?i=tt3896198&apikey=3d3318fc").then(resp => resp.json()).then(data => fetch("http://localhost:3000/movies")).then(resp => resp.json()).then(data => console.log(data));
+    //fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1').then(resp => resp.json()).then(data =>
+        fetch("http://localhost:3000/movies").then(resp => resp.json()).then(data => console.log(data));
 
     const createMovie = async (movie) => {
         try {
@@ -103,21 +104,27 @@ fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en
 
     // On Load up adds movie cards to page
     async function renderMovieCard(movie) {
-        const response = await fetch("http://www.omdbapi.com/?i=tt3896198&apikey=3d3318fc");
+        const response = await fetch(`http://localhost:3000/movie/1`);
         const movieData = await response.json();
         const movieContainer = document.getElementById("movies");
         // const MOVIE_KEY = "3d3318fc";
 
 // Create HTML structure for the movie card
 
-                let movieHTML = document.getElementById("movies").createElement("div");
-                    movieHTML += `
-                        <img src="http://img.omdbapi.com/?apikey=[3d3318fc]&"/>
-                        <h3>${movie.title}</h3>
-                        <p>${movie.rating}</p>
-                        <p>${movie.plot}</p>
+                let movieHTML = document.createElement("div");
+                    movieHTML.innerHTML += ` 
+                        <img src="${movieData.Poster}" alt="${movieData.Title} Poster"/>
+                        <h3>${movieData.Title}</h3>
+                        <p>${movieData.imdbRating}</p>
+                        <p>${movieData.Plot}</p>
+                        
 `;
         movieContainer.appendChild(movieHTML);
         document.getElementById('movies').innerHTML = movieHTML;
                 };
 
+
+// <img src="http://img.omdbapi.com/?apikey=[3d3318fc]&"/>
+// <h3>${movie.title}</h3>
+// <p>${movie.rating}</p>
+// <p>${movie.plot}</p>
