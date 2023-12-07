@@ -1,5 +1,10 @@
 "use strict";
 
+// Example search query (replace with actual user input)
+const searchQuery = 'shrek';
+
+const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchQuery)}&include_adult=false&language=en-US&page=1`;
+
 const options = {
     method: 'GET',
     headers: {
@@ -7,6 +12,7 @@ const options = {
         Authorization: AUTH_KEY
     }
 };
+
 fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1', options)
     .then(response => response.json())
     .then(response => console.log(response))
@@ -57,29 +63,30 @@ async function createAndRenderMovie() {
     } catch (error) {
         console.error(error);
     }
+    window.onload = createAndRenderMovie;
      // await createAndRenderMovie();
 }
 
 // Call the function to create and render a new movie
 
 
-    const editMovie = async (id, movie) => {
-        try {
-            const url = `http://localhost:3000/movie/${id}`;
-            const options = {
-                method: "PATCH",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(movie)
-            };
-            const resp = await fetch(url, options);
-            const newMovie = await resp.json();
-            return newMovie;
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    // const editMovie = async (id, movie) => {
+    //     try {
+    //         const url = `http://localhost:3000/movie/${id}`;
+    //         const options = {
+    //             method: "PATCH",
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(movie)
+    //         };
+    //         const resp = await fetch(url, options);
+    //         const newMovie = await resp.json();
+    //         return newMovie;
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
     // editBook(5, {"authorId": 5});
 
@@ -133,10 +140,7 @@ document.getElementById('addMovieBtn').addEventListener('click', function (e) {
     const userInput = document.getElementById('addMovie').value;
     createAndRenderMovie(userInput, AUTH_KEY).then(function (result) {
         if (result && result.Title) {
-            renderMovieCard(result);
-        } else (result && result.Error); {
-            console.error(result.Error);
-            alert('Unable to fetch data for the given movie title.');
+            renderMovieCard(result).value;
         }
     }).catch(function (error) {
         console.error(error);
@@ -147,7 +151,7 @@ document.getElementById('addMovieBtn').addEventListener('click', function (e) {
 
     // On Load up adds movie cards to page
     async function renderMovieCard(movie) {
-        const response = await fetch(`http://localhost:3000/movie/1`);
+        const response = await fetch("https://api.themoviedb.org/3/movie/list");
         const movieData = await response.json();
         const movieContainer = document.getElementById("movies");
         // const MOVIE_KEY = "3d3318fc";
