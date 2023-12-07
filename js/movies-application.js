@@ -1,8 +1,5 @@
 "use strict";
 // const MOVIE_KEY = "7f4f98e5614adf52b2fdfeeb75a48c97"
-const searchQuery = 'lion king';
-
-const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchQuery)}&include_adult=false&language=en-US&page=1`;
 
 
 const options = {
@@ -12,7 +9,7 @@ const options = {
         Authorization: AUTH_KEY
     }
 };
-fetch(searchUrl, options)
+fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1', options)
     .then(response => response.json())
     .then(response => console.log(response))
     .catch(err => console.error(err));
@@ -107,6 +104,8 @@ fetch(searchUrl, options)
 
     // On Load up adds movie cards to page
     async function renderMovieCard(movie) {
+        const response = await fetch(`http://localhost:3000/movie/1`);
+        const movieData = await response.json();
         const movieContainer = document.getElementById("movies");
         // const MOVIE_KEY = "3d3318fc";
 
@@ -121,7 +120,8 @@ fetch(searchUrl, options)
                         
 `;
         movieContainer.appendChild(movieHTML);
-                }
+        document.getElementById('movies').innerHTML = movieHTML;
+                };
 
 
 // <img src="http://img.omdbapi.com/?apikey=[3d3318fc]&"/>
