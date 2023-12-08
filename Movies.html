@@ -25,19 +25,33 @@
         <div class="mb-3">
             <label for="movieRating" class="form-label">Movie Rating</label>
             <select id="movieRating" class="form-select">
-                <option>Star Rating: ★☆☆☆☆</option>
-                <option>Star Rating: ★★☆☆☆</option>
-                <option>Star Rating: ★★★☆☆</option>
-                <option>Star Rating: ★★★★☆</option>
-                <option>Star Rating: ★★★★★</option>
+                <option value="0">All Ratings:</option>
+                <option value="1">Voter Rating: 1/10</option>
+                <option value="2">Voter Rating: 2/10</option>
+                <option value="3">Voter Rating: 3/10</option>
+                <option value="4">Voter Rating: 4/10</option>
+                <option value="5">Voter Rating: 5/10</option>
+                <option value="6">Voter Rating: 6/10</option>
+                <option value="7">Voter Rating: 7/10</option>
+                <option value="8">Voter Rating: 8/10</option>
+                <option value="9">Voter Rating: 9/10</option>
+                <option value="10">Voter Rating: 10/10</option>
             </select>
         </div>
         <button id="submitSearch" type="submit" class="btn btn-primary">Submit</button>
     </fieldset>
 </form>
 
+<!--Loading Movie-->
+<div id="loadingMessage">
+    Loading Movies...
+</div>
+
+
 <!--Add movie card to page-->
 <div id="movies"></div>
+
+
 
 <script src="js/movies-application.js"></script>
 </body>
