@@ -10,7 +10,6 @@ async function fetchMovies(searchText) {
             Authorization: AUTH_KEY,
         },
     };
-
     try {
         const response = await fetch(url, options);
         if (!response.ok) {
@@ -18,12 +17,30 @@ async function fetchMovies(searchText) {
         }
         const data = await response.json();
         console.log('API Response:', data);
-        return data.results;  // Assuming the results are in the 'results' property
+        return data.results;
     } catch (error) {
         console.error('Error fetching movies:', error);
         throw error;  // Rethrow the error to be caught in the calling code
     }
 }
+
+// Function to search movies
+async function searchMovies(e) {
+    e.preventDefault();
+    const loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.innerHTML = `<iframe src="https://giphy.com/embed/Q0cwjn4FS474gO04uO" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CampariIT-venezia-campari-venezia79-Q0cwjn4FS474gO04uO">via GIPHY</a></p>`;
+    loadingMessage.style.display = 'block';
+    const results = await filterMovieRating();
+
+    await updateJsonFile(results);
+
+    setTimeout(() => {
+        loadingMessage.style.display = 'none';
+    }, 4000);
+}
+
+// Event listener for search button click
+document.getElementById("submitSearch").addEventListener("click", searchMovies);
 
 // Function to display movies
 function displayMovies(results, movieRating = 0) {
@@ -31,7 +48,7 @@ function displayMovies(results, movieRating = 0) {
     loadingMessage.style.display = 'none';
 
     const movieContainer = document.getElementById('movies');
-    movieContainer.innerHTML = '';
+    movieContainer.innerHTML += '';
 
     const moviesToDisplay = results.slice(0, 1);
 
@@ -55,18 +72,17 @@ function displayMovies(results, movieRating = 0) {
 // Function to filter movies by rating
 async function filterMovieRating() {
     const selectRating = document.getElementById("movieRating").value;
-
     try {
         const searchText = document.getElementById('searchBar').value;
         const results = await fetchMovies(searchText);
-
         if (results) {
             const filteredResults = results.filter(movie => {
                 return selectRating === 'all' || parseFloat(selectRating) === Math.floor(movie.vote_average);
             });
 
             displayMovies(filteredResults);
-            await updateJsonFile(filteredResults);
+            return filteredResults;
+
         }
     } catch (error) {
         console.error('Error:', error);
@@ -76,23 +92,7 @@ async function filterMovieRating() {
 // Event listener for movie rating change
 document.getElementById("movieRating").addEventListener("change", () => filterMovieRating());
 
-// Function to search movies
-async function searchMovies(e) {
-    e.preventDefault();
-    const loadingMessage = document.getElementById('loadingMessage');
-    loadingMessage.innerHTML = `<iframe src="https://giphy.com/embed/Q0cwjn4FS474gO04uO" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CampariIT-venezia-campari-venezia79-Q0cwjn4FS474gO04uO">via GIPHY</a></p>`;
-    loadingMessage.style.display = 'block';
 
-    await filterMovieRating();
-    await updateJsonFile();
-
-    setTimeout(() => {
-        loadingMessage.style.display = 'none';
-    }, 2000);
-}
-
-// Event listener for search button click
-document.getElementById("submitSearch").addEventListener("click", searchMovies);
 
 // Function to update JSON file
 async function updateJsonFile(results) {
