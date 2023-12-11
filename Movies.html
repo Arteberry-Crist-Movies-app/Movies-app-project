@@ -1,54 +1,94 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <script src="js/keysforproject.js"></script>
+<!--    <script src="https://api.themoviedb.org/3/movie/157336?api_key=7f4f98e5614adf52b2fdfeeb75a48c97"></script>-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"> <!--bootstrap icons-->
+    <link rel="stylesheet" href="movies.css">
+
+<!--    <title>Movies</title>-->
+
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash;Lets user search for a movie&ndash;&gt;-->
+<!--<form id="movieForm">-->
+<!--    <fieldset>-->
+<!--        <legend>Add a Movie!</legend>-->
+<!--        <div class="mb-3">-->
+<!--            <label for="movieTitle" class="form-label">Movie Title Here</label>-->
+<!--            <input type="text" id="movieTitle" class="form-control" placeholder="">-->
+<!--        </div>-->
+
+<!--&lt;!&ndash; div for the movie rating&ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label for="movieRating" class="form-label">Movie Rating</label>-->
+<!--            <input type="number" min="1" max="10" id="movieRating" class="form-control">-->
+<!--        </div>-->
+<!--        <button id="searchButton" type="submit" class="btn btn-primary">Add Movie</button>-->
+<!--        <button id="resetButton" class="btn btn-primary">Rest Filtered Movie</button>-->
+<!--    </fieldset>-->
+<!--</form>-->
+
+
+<!--&lt;!&ndash;Loading Movie&ndash;&gt;-->
+<!--<div id="loadingMessage">-->
+<!--    Loading Movies...-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash;Add movie card to page&ndash;&gt;-->
+<!--<div id="movie-container" class="card">-->
+
+<!--    <div id="movies" class="card-body"></div>-->
+
+<!--</div>-->
+
+<!--&lt;!&ndash;<script src="js/testing.js" type="module"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="js/movies-application.js"></script>&ndash;&gt;-->
+<!--<script src="js/allNew.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/keysforproject.js"></script>
-    <script src="https://api.themoviedb.org/3/movie/157336?api_key=7f4f98e5614adf52b2fdfeeb75a48c97"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"> <!--bootstrap icons-->
-    <link rel="stylesheet" href="movies.css">
-
-    <title>Movies</title>
-
+    <title>Movies Application</title>
 </head>
 <body>
 
-<!--Lets user search for a movie-->
-<form id="movieForm">
-    <fieldset>
-        <legend>Add a Movie!</legend>
-        <div class="mb-3">
-            <label for="movieTitle" class="form-label">Movie Title Here</label>
-            <input type="text" id="movieTitle" class="form-control" placeholder="">
-        </div>
+<h1>Movies Application</h1>
 
-<!-- div for the movie rating-->
-        <div class="mb-3">
-            <label for="movieRating" class="form-label">Movie Rating</label>
-            <input type="number" min="1" max="10" id="movieRating" class="form-control">
-        </div>
-        <button id="searchButton" type="submit" class="btn btn-primary">Add Movie</button>
-        <button id="resetButton" class="btn btn-primary">Rest Filtered Movie</button>
-    </fieldset>
+<div id="loading-message">Loading...</div>
+
+<fieldset>
+<legend>Edit Movie</legend>
+<form id="edit-movie-form">
+    <label for="edit-title" class="form-label">Movie Title:</label>
+    <input type="text" id="edit-title" required>
+    <label for="edit-rating">Rating:</label>
+    <input type="text" id="edit-rating" required>
+    <button type="submit">Save</button>
 </form>
 
+<legend>Add Movie</legend>
+<form id="add-movie-form">
+    <label for="title" class="form-label"> Movie Title:</label>
+    <input type="text" id="title" required>
+    <label for="rating">Rating:</label>
+    <input type="text" id="rating" required>
+    <button type="submit">Add Movie</button>
+</form>
+</fieldset>
 
-<!--Loading Movie-->
-<div id="loadingMessage">
-    Loading Movies...
-</div>
+<ul id="movies-list" class="card-body"></ul>
 
 
-<!--Add movie card to page-->
-<div id="movie-container" class="card">
-
-    <div id="movies" class="card-body"></div>
-
-</div>
-
-<!--<script src="js/testing.js"></script>-->
-<!--<script src="js/movies-application.js"></script>-->
-<script src="js/allNew.js"></script>
+<script src="js/testing.js"></script>
 </body>
 </html>

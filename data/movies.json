@@ -1,11 +1,5 @@
 {
   "movies": [
-    [
-      {
-        "title": "Mufasa: The Lion King",
-        "rating": 0
-      }
-    ],
     {
       "adult": false,
       "backdrop_path": "/xfOB4nbbVMWC0F2v6AxwWH5BIOI.jpg",
@@ -62,9 +56,6 @@
       "video": false,
       "vote_average": 8.476,
       "vote_count": 25762
-    },
-    {
-      "id": 10626
     }
   ]
 }

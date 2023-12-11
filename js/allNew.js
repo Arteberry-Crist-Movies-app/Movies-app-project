@@ -1,4 +1,7 @@
 "use strict";
+
+
+
 document.addEventListener('DOMContentLoaded', function displayFromJson () {
 
     const loadingMessage = document.getElementById('loadingMessage');
@@ -21,9 +24,11 @@ document.addEventListener('DOMContentLoaded', function displayFromJson () {
     }
     fetch(`http://localhost:3000/movies`, options)
         .then(response => response.json())
+
         .then(data => {
             // Loop through all returned movies
-            const movies = data.results;
+            const movies = Array.isArray(data.results) ? data.results : [];
+
             movies.forEach(movie => {
                 // Check whether movie already exists on page
                 if (!document.querySelector(`#movie-${movie.id}`)) {
@@ -35,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function displayFromJson () {
                             <h3>${name}</h3>
                             <p id="movie-img">${poster}</p>
                             <p>Voter Rating: ${rating}</p>
-                            <button type="button" id="delete-Btn" tabindex="0">Delete Movie</button>
                         </div>`;
                     document.querySelector('#movies').innerHTML += movieCard;
                 }
