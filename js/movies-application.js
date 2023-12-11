@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <h2 class="movie-title">${movie.title}</h2>
       <p class="movie-poster" id="movie-img">${poster}</p>
       <p class="movie-rating">Rating: ${rating}</p>
-      <button class="edit-button" data-id="${movie.id}">Edit</button>
-      <button class="delete-button" data-id="${movie.id}">Delete</button>
+      <button class="edit-button btn btn-primary mt-2" data-id="${movie.id}">Edit</button>
+      <button class="delete-button btn btn-primary mt-2" data-id="${movie.id}">Delete</button>
     </div>
   `;
     }

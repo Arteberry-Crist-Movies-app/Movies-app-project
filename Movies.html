@@ -15,27 +15,29 @@
 <h1>Movies Application</h1>
 
 <!--Form to Search and Add a movie to the page-->
+<div class="parent-form">
 <fieldset>
 <legend>Add Movie</legend>
 <form id="add-movie-form">
     <label for="movieTitle" class="form-label"> Movie Title:</label>
-    <input type="text" id="movieTitle" class="form-control" placeholder="Search Movie Title" required>
+    <input type="text" id="movieTitle" class="form-control w-50" placeholder="Search Movie Title" required>
 
-    <button type="submit" class="btn btn-primary">Add Movie</button>
+    <button type="submit" class="btn btn-primary mt-2">Add Movie</button>
 </form>
 
 <!--    Form to Edit a movie on the page-->
 <legend>Edit Movie</legend>
 <form id="edit-movie-form">
     <label for="edit-title" class="form-label">Movie Title:</label>
-    <input type="text" id="edit-title" class="form-control" required>
+    <input type="text" id="edit-title" class="form-control w-50" required>
 
     <label for="edit-rating">Rating:</label>
-    <input type="text" id="edit-rating" class="form-control" required>
+    <input type="text" id="edit-rating" class="form-control w-50" required>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
 </form>
 </fieldset>
+</div>
 
 <!--Loading Display Div-->
 <div id="loading-message">Loading...</div>
