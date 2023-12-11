@@ -67,22 +67,26 @@
 <div id="loading-message">Loading...</div>
 
 <fieldset>
+<legend>Add Movie</legend>
+<form id="add-movie-form">
+    <label for="movieTitle" class="form-label"> Movie Title:</label>
+    <input type="text" id="movieTitle" class="form-control" placeholder="Search Movie Title" required>
+
+    <label for="rating">Rating:</label>
+    <input type="text" id="rating" class="form-control" required>
+
+    <button type="submit" class="btn btn-primary">Add Movie</button>
+</form>
+
 <legend>Edit Movie</legend>
 <form id="edit-movie-form">
     <label for="edit-title" class="form-label">Movie Title:</label>
-    <input type="text" id="edit-title" required>
-    <label for="edit-rating">Rating:</label>
-    <input type="text" id="edit-rating" required>
-    <button type="submit">Save</button>
-</form>
+    <input type="text" id="edit-title" class="form-control" required>
 
-<legend>Add Movie</legend>
-<form id="add-movie-form">
-    <label for="title" class="form-label"> Movie Title:</label>
-    <input type="text" id="title" required>
-    <label for="rating">Rating:</label>
-    <input type="text" id="rating" required>
-    <button type="submit">Add Movie</button>
+    <label for="edit-rating">Rating:</label>
+    <input type="text" id="edit-rating" class="form-control" required>
+
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
 </fieldset>
 

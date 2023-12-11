@@ -142,9 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const moviesList = document.getElementById("movies-list");
     const loadingMessage = document.getElementById("loading-message");
 
-    // Display a "loading..." message
+// Display a "loading..." message
     loadingMessage.innerText = "Loading...";
 
+// Make a request to get a listing of all the movies from json
     function generateMoviesHTML(movie){
         const poster = `<img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${name} Poster"/>`
         const rating = movie.vote_average;
@@ -156,8 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   `;
     }
-
-// Make a request to get a listing of all the movies
     fetch("http://localhost:3000/movies")
         .then((response) => response.json())
         .then((movies) => {
@@ -167,15 +166,14 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch((error) => console.error('Error:', error));
 
-    // Add a movie
+// Add a movie to the page
     const addMovieForm = document.getElementById("add-movie-form");
     addMovieForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        const title = document.getElementById("title").value;
-        const rating = document.getElementById("rating").value;
+        const addMovieTitle = document.getElementById("movieTitle").value;
 
-        // Make a POST request to /movies with the information from the form
-        fetch("https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${searchText}", {
+// Make a GET request to TMDb API with the information from the form
+        fetch(`https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${addMovieTitle}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -183,13 +181,19 @@ document.addEventListener("DOMContentLoaded", () => {
             },
         })
             .then((response) => response.json())
-            .then((newMovie) => {
-                moviesList.innerHTML += generateMoviesHTML(newMovie);
+            .then((data) => {
+                if (data.results && data.results.length > 0) {
+                    const newMovie = data.results[0];
+                    moviesList.innerHTML += generateMoviesHTML(newMovie);
+                }
+                else {
+                    console.log("No movies found");
+                }
             })
             .catch((error) => console.error('Error:', error));
     });
 
-    // Edit a movie
+// Edit a movie
     moviesList.addEventListener("click", (event) => {
         if (event.target.classList.contains("edit-button")) {
             const movieId = event.target.dataset.id;
@@ -197,11 +201,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const title = movie.querySelector(".movie-title").innerText;
             const rating = movie.querySelector(".movie-rating").innerText;
 
-            // Populate the edit form with the selected movie's information
+// Populate the edit form with the selected movie's information
             document.getElementById("edit-title").value = title;
             document.getElementById("edit-rating").value = rating;
 
-            // Make a fetch request when the form is submitted
+// Make a fetch request when the form is submitted for editing a movie
             const editMovieForm = document.getElementById("edit-movie-form");
             editMovieForm.addEventListener("submit", (event) => {
                 event.preventDefault();
@@ -224,13 +228,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Delete movies
+// Delete movies
     moviesList.addEventListener("click", (event) => {
         if (event.target.classList.contains("delete-button")) {
             const movieId = event.target.dataset.id;
             const movie = document.getElementById(`movie-${movieId}`);
 
-            // Send a DELETE request
+// Send a DELETE request
             fetch(`http://localhost:3000/movies/${movieId}`, {
                 method: "DELETE",
             })
