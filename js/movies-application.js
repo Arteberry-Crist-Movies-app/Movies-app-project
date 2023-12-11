@@ -1,125 +1,127 @@
-"use strict";
 
-//Function to fetch movies
-async function fetchMovies(searchText) {
-    const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${searchText}`;
-    const options = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            Authorization: AUTH_KEY,
-        },
-    };
-    try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-            new Error(`Failed to fetch movies. Status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('API Response:', data);
-        return data.results;
-    } catch (error) {
-        console.error('Error fetching movies:', error);
-        throw error;  // Rethrow the error to be caught in the calling code
+// //Loading message code
+//     const loadingMessage = document.getElementById('loadingMessage');
+//     loadingMessage.innerHTML = `<iframe src="https://giphy.com/embed/Q0cwjn4FS474gO04uO" width="100%" height="480" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CampariIT-venezia-campari-venezia79-Q0cwjn4FS474gO04uO">via GIPHY</a></p>`;
+//     loadingMessage.style.display = 'block';
+//     setTimeout(() => {
+//         loadingMessage.style.display = 'none';
+//     }, 2000);
+document.addEventListener("DOMContentLoaded", () => {
+    const moviesList = document.getElementById("movies-list");
+    const loadingMessage = document.getElementById("loading-message");
+
+// Display a "loading..." message
+    loadingMessage.innerText = "Loading...";
+
+// Make a request to get a listing of all the movies from json
+    function generateMoviesHTML(movie){
+        const poster = `<img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${name} Poster"/>`
+        const rating = movie.vote_average;
+        return `
+    <div id="movie-${movie.id}" class="movie-card">
+      <h2 class="movie-title">${movie.title}</h2>
+        <p class="movie-poster" id="movie-img">${poster}</p>
+      <p class="movie-rating">Rating: ${rating}</p>
+    </div>
+  `;
     }
-}
+    fetch("http://localhost:3000/movies")
+        .then((response) => response.json())
+        .then((movies) => {
+// Remove the "loading..." message and replace it with HTML generated from the JSON response
+            loadingMessage.style.display = "none";
+            moviesList.innerHTML = movies.map(movie => generateMoviesHTML(movie)).join('');
+        })
+        .catch((error) => console.error('Error:', error));
 
-// Function to search movies
-async function searchMovies(e) {
-    e.preventDefault();
-    const loadingMessage = document.getElementById('loadingMessage');
-    loadingMessage.innerHTML = `<iframe src="https://giphy.com/embed/Q0cwjn4FS474gO04uO" width="480" height="480" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CampariIT-venezia-campari-venezia79-Q0cwjn4FS474gO04uO">via GIPHY</a></p>`;
-    loadingMessage.style.display = 'block';
-    const results = await filterMovieRating();
+// Add a movie to the page
+    const addMovieForm = document.getElementById("add-movie-form");
+    addMovieForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const addMovieTitle = document.getElementById("movieTitle").value;
 
-    await updateJsonFile(results);
-
-    setTimeout(() => {
-        loadingMessage.style.display = 'none';
-    }, 4000);
-}
-
-// Event listener for search button click
-document.getElementById("submitSearch").addEventListener("click", searchMovies);
-
-// Function to display movies
-function displayMovies(results, movieRating = 0) {
-    const loadingMessage = document.getElementById('loadingMessage');
-    loadingMessage.style.display = 'none';
-
-    const movieContainer = document.getElementById('movies');
-    movieContainer.innerHTML += '';
-
-    const moviesToDisplay = results.slice(0, 1);
-
-    if (moviesToDisplay.length > 0) {
-        moviesToDisplay.forEach(movie => {
-            let movieCard = `
-                <div>
-                    <h3>${movie.title}</h3>
-                    <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"/>
-                    <p>${movie.overview}</p>
-                    <p>${movie.vote_average}</p>
-                </div>
-            `;
-            movieContainer.innerHTML += movieCard;
-        });
-    } else {
-        movieContainer.innerHTML = '<p>No results found</p>';
-    }
-}
-
-// Function to filter movies by rating
-async function filterMovieRating() {
-    const selectRating = document.getElementById("movieRating").value;
-    try {
-        const searchText = document.getElementById('searchBar').value;
-        const results = await fetchMovies(searchText);
-        if (results) {
-            const filteredResults = results.filter(movie => {
-                return selectRating === 'all' || parseFloat(selectRating) === Math.floor(movie.vote_average);
-            });
-
-            displayMovies(filteredResults);
-            return filteredResults;
-
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-// Event listener for movie rating change
-document.getElementById("movieRating").addEventListener("change", () => filterMovieRating());
-
-
-
-// Function to update JSON file
-async function updateJsonFile(results) {
-    try {
-        const movieUpdates = results.map(movie => {
-            return {
-                title: movie.title,
-                rating: movie.vote_average
-            };
-        });
-        const url = `http://localhost:3000/movies`;
-        const options = {
-            method: 'POST',
+// Make a GET request to TMDb API with the information from the form
+        fetch(`https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${addMovieTitle}`, {
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
+                Authorization: AUTH_KEY,
             },
-            body: JSON.stringify(movieUpdates),
-        };
-        const resp = await fetch(url, options);
-        // Check the response status
-        if (!resp.ok) {
-            return new Error(`HTTP error! status: ${resp.status}`);
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.results && data.results.length > 0) {
+                    const newMovie = data.results[0];
+
+// Adding movies to the Json file
+                    fetch("http://localhost:3000/movies", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(newMovie),
+                    })
+                        .then((response) => response.json())
+                        .then((addedMovie) => {
+                            moviesList.innerHTML += generateMoviesHTML(newMovie);
+                        })
+                        .catch((error) => console.error('Error adding movie:', error));
+                }
+                else {
+                    console.log("No movies found");
+                }
+            })
+            .catch((error) => console.error('Error:', error));
+    });
+// Edit a movie
+    moviesList.addEventListener("click", (event) => {
+        if (event.target.classList.contains("edit-button")) {
+            const movieId = event.target.dataset.id;
+            const movie = document.getElementById(`movie-${movieId}`);
+            const title = movie.querySelector(".movie-title").innerText;
+            const rating = movie.querySelector(".movie-rating").innerText;
+
+// Populate the edit form with the selected movie's information
+            document.getElementById("edit-title").value = title;
+            document.getElementById("edit-rating").value = rating;
+
+// Make a fetch request when the form is submitted for editing a movie
+            const editMovieForm = document.getElementById("edit-movie-form");
+            editMovieForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const newTitle = document.getElementById("edit-title").value;
+                const newRating = document.getElementById("edit-rating").value;
+
+                fetch(`http://localhost:3000/movies/${movieId}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ title: newTitle, rating: newRating }),
+                })
+                    .then(() => {
+                        movie.querySelector(".movie-title").innerText = newTitle;
+                        movie.querySelector(".movie-rating").innerText = newRating;
+                    })
+                    .catch((error) => console.error('Error:', error));
+            });
         }
-        const newMovie = await resp.json();
-        return newMovie;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
+    });
+
+// Delete movies from the page
+    moviesList.addEventListener("click", (event) => {
+        if (event.target.classList.contains("delete-button")) {
+            const movieId = event.target.dataset.id;
+            const movie = document.getElementById(`movie-${movieId}`);
+
+// Send a DELETE request to json file
+            fetch(`http://localhost:3000/movies/${movieId}`, {
+                method: "DELETE",
+            })
+                .then(() => {
+                    movie.remove();
+                })
+                .catch((error) => console.error('Error:', error));
+        }
+    });
+});
