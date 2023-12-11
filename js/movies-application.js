@@ -20,8 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return `
     <div id="movie-${movie.id}" class="movie-card">
       <h2 class="movie-title">${movie.title}</h2>
-        <p class="movie-poster" id="movie-img">${poster}</p>
+      <p class="movie-poster" id="movie-img">${poster}</p>
       <p class="movie-rating">Rating: ${rating}</p>
+      <button class="edit-button" data-id="${movie.id}">Edit</button>
+      <button class="delete-button" data-id="${movie.id}">Delete</button>
     </div>
   `;
     }
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch((error) => console.error('Error:', error));
     });
+
 // Edit a movie
     moviesList.addEventListener("click", (event) => {
         if (event.target.classList.contains("edit-button")) {
