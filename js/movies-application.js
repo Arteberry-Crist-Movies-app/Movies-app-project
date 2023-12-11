@@ -1,17 +1,19 @@
+"use strict";
 
-// //Loading message code
-//     const loadingMessage = document.getElementById('loadingMessage');
-//     loadingMessage.innerHTML = `<iframe src="https://giphy.com/embed/Q0cwjn4FS474gO04uO" width="100%" height="480" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CampariIT-venezia-campari-venezia79-Q0cwjn4FS474gO04uO">via GIPHY</a></p>`;
-//     loadingMessage.style.display = 'block';
-//     setTimeout(() => {
-//         loadingMessage.style.display = 'none';
-//     }, 2000);
+//Loading message code
+    const loadingMessage = document.getElementById('loading-message');
+
+    loadingMessage.innerHTML = `<iframe src="https://giphy.com/embed/Q0cwjn4FS474gO04uO" width="100%" height="480" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/CampariIT-venezia-campari-venezia79-Q0cwjn4FS474gO04uO">via GIPHY</a></p>`;
+    loadingMessage.style.display = 'block';
+// Timer for the giphy display
+    setTimeout(() => {
+        loadingMessage.style.display = 'none';
+    }, 2000);
+
+// On page load for the movies json
 document.addEventListener("DOMContentLoaded", () => {
     const moviesList = document.getElementById("movies-list");
     const loadingMessage = document.getElementById("loading-message");
-
-// Display a "loading..." message
-    loadingMessage.innerText = "Loading...";
 
 // Make a request to get a listing of all the movies from json
     function generateMoviesHTML(movie){
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   `;
     }
+
     fetch("http://localhost:3000/movies")
         .then((response) => response.json())
         .then((movies) => {

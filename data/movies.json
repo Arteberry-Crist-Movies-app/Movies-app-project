@@ -2,25 +2,6 @@
   "movies": [
     {
       "adult": false,
-      "backdrop_path": "/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
-      "genre_ids": [
-        12,
-        14
-      ],
-      "id": 671,
-      "original_language": "en",
-      "original_title": "Harry Potter and the Philosopher's Stone",
-      "overview": "Harry Potter has lived under the stairs at his aunt and uncle's house his whole life. But on his 11th birthday, he learns he's a powerful wizard—with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school's kindly headmaster, Harry uncovers the truth about his parents' deaths—and about the villain who's to blame.",
-      "popularity": 199.725,
-      "poster_path": "/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",
-      "release_date": "2001-11-16",
-      "title": "Harry Potter and the Philosopher's Stone",
-      "video": false,
-      "vote_average": 7.915,
-      "vote_count": 25726
-    },
-    {
-      "adult": false,
       "backdrop_path": "/qdIMHd4sEfJSckfVJfKQvisL02a.jpg",
       "genre_ids": [
         35,
@@ -34,10 +15,11 @@
       "popularity": 80.369,
       "poster_path": "/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
       "release_date": "1994-06-23",
-      "title": "Forrest Gump",
+      "title": "Forrest Gump!!",
       "video": false,
       "vote_average": 8.476,
-      "vote_count": 25762
+      "vote_count": 25762,
+      "rating": "Rating: 8.476"
     },
     {
       "adult": false,
@@ -61,25 +43,24 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
+      "backdrop_path": "/uQ5xARQz6BiKlppKCBnKmkfW76m.jpg",
       "genre_ids": [
-        16,
-        35,
-        14,
+        878,
+        28,
         12,
-        10751
+        53
       ],
-      "id": 808,
+      "id": 13455,
       "original_language": "en",
-      "original_title": "Shrek",
-      "overview": "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
-      "popularity": 187.423,
-      "poster_path": "/dyhaB19AICF7TO7CK2aD6KfymnQ.jpg",
-      "release_date": "2001-05-18",
-      "title": "Shrek",
+      "original_title": "Push",
+      "overview": "After his father, an assassin, is brutally murdered, Nick Gant vows revenge on Division, the covert government agency that dabbles in psychic warfare and experimental drugs. Hiding in Hong Kong's underworld, Nick assembles a band of rogue psychics dedicated to destroying Division. Together with Cassie, a teenage clairvoyant, Nick goes in search of a missing girl and a stolen suitcase that could be the key to accomplishing their mutual goal.",
+      "popularity": 22.602,
+      "poster_path": "/fHStfRjQGstuqtUz4Q22lbFU58M.jpg",
+      "release_date": "2009-02-04",
+      "title": "Push",
       "video": false,
-      "vote_average": 7.731,
-      "vote_count": 16020
+      "vote_average": 6.155,
+      "vote_count": 2140
     }
   ]
 }
