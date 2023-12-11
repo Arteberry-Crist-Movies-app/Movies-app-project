@@ -26,26 +26,26 @@ document.getElementById('searchButton').addEventListener('click', function (even
     fetch(`https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${searchText}`, options)
         .then(response => response.json())
         .then(data => {
-// Retain the first movie from each search
-            const movie = data.results[0];
+    // Retain the first movie from each search
+                const movie = data.results[0];
 
-// Prevents duplicating same movie in case of multiple search
-            if (!document.getElementById(`movie-${movie.id}`)) {
+    // Prevents duplicating same movie in case of multiple search
+                if (!document.getElementById(`movie-${movie.id}`)) {
 
-//Creating a way to display the movies on HTML
-                const name = movie.title;
-                const poster = `<img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${name} Poster"/>`
-                const rating = movie.vote_average;
-                const movieCard = `<div class="movie-card" id="movie-${movie.id}"><h3>${name}</h3><p id="movie-img">${poster}</p><p>Voter Rating: ${rating}</p><button type="button" id="delete-Btn">Delete Movie</button></div>`;
-//Displaying the movies on HTML
-                document.querySelector('#movies').innerHTML += movieCard;
-            }
+    //Creating a way to display the movies on HTML
+                    const name = movie.title;
+                    const poster = `<img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${name} Poster"/>`
+                    const rating = movie.vote_average;
+                    const movieCard = `<div class="movie-card" id="movie-${movie.id}"><h3>${name}</h3><p id="movie-img">${poster}</p><p>Voter Rating: ${rating}</p><button type="button" id="delete-Btn">Delete Movie</button></div>`;
+    //Displaying the movies on HTML
+                    document.querySelector('#movies').innerHTML += movieCard;
+                }
 
 //Function to delete movies from the page
             function deleteMovie(movieId) {
                 let movieCards = document.getElementsByClassName('movie-card');
                 if (event.target.id === 'delete-btn') {
-                    fetch(`http://localhost:3000/movies/${movie.id}`, {
+                    fetch(`http://localhost:3000/movies/${movieId}`, {
                         method: "DELETE",
                         headers: {
                             "content-type": "application/json",
@@ -54,12 +54,14 @@ document.getElementById('searchButton').addEventListener('click', function (even
                     }).then(resp => resp.json())
                         .then(() => {
                             movieCards.innerHTML = "";
-                            const home = movieCards.querySelector(`[data-id='${movie.id}']`);
+                            const movie = movieCards.querySelector(`[data-id='${movie.id}']`);
                             movie.remove();
                         })
-                        document.getElementById('delete-btn').addEventListener('click', deleteMovie);
+
                 }
         }
+//Event listener for delete button
+            document.getElementById('delete-Btn').addEventListener('click', deleteMovie(movie.id));
 
 //Function to add movies to JSON file
             function addMovieToJSON(movie) {
