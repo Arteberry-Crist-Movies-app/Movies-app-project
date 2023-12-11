@@ -43,24 +43,22 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/uQ5xARQz6BiKlppKCBnKmkfW76m.jpg",
+      "backdrop_path": "/xfOB4nbbVMWC0F2v6AxwWH5BIOI.jpg",
       "genre_ids": [
-        878,
-        28,
-        12,
-        53
+        35
       ],
-      "id": 13455,
+      "id": 10625,
       "original_language": "en",
-      "original_title": "Push",
-      "overview": "After his father, an assassin, is brutally murdered, Nick Gant vows revenge on Division, the covert government agency that dabbles in psychic warfare and experimental drugs. Hiding in Hong Kong's underworld, Nick assembles a band of rogue psychics dedicated to destroying Division. Together with Cassie, a teenage clairvoyant, Nick goes in search of a missing girl and a stolen suitcase that could be the key to accomplishing their mutual goal.",
-      "popularity": 22.602,
-      "poster_path": "/fHStfRjQGstuqtUz4Q22lbFU58M.jpg",
-      "release_date": "2009-02-04",
-      "title": "Push",
+      "original_title": "Mean Girls",
+      "overview": "Cady Heron is a hit with The Plastics, the A-list girl clique at her new school, until she makes the mistake of falling for Aaron Samuels, the ex-boyfriend of alpha Plastic Regina George.",
+      "popularity": 102.544,
+      "poster_path": "/2ZkuQXvVhh45uSvkBej4S7Ix1NJ.jpg",
+      "release_date": "2004-04-30",
+      "title": "Mean Girls",
       "video": false,
-      "vote_average": 6.155,
-      "vote_count": 2140
+      "vote_average": 7.194,
+      "vote_count": 8072,
+      "rating": "Rating: 8"
     }
   ]
 }

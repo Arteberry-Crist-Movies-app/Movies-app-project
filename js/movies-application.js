@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const moviesList = document.getElementById("movies-list");
     const loadingMessage = document.getElementById("loading-message");
 
-// Make a request to get a listing of all the movies from json
+//Get a list of all the movies from json
     function generateMoviesHTML(movie){
         const poster = `<img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${name} Poster"/>`
         const rating = movie.vote_average;
@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("http://localhost:3000/movies")
         .then((response) => response.json())
         .then((movies) => {
+
 // Remove the "loading..." message and replace it with HTML generated from the JSON response
             loadingMessage.style.display = "none";
             moviesList.innerHTML = movies.map(movie => generateMoviesHTML(movie)).join('');
